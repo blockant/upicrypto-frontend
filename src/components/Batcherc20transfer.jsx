@@ -87,7 +87,7 @@ export default function Batcherc20transfer() {
         }
       );
       const data = await response.json();
-      setTransactionHash(data.transactionHash);
+      setTransactionHash(data.txHash);
     } catch (error) {
       console.log("Error occured while Seding data ", error);
     }

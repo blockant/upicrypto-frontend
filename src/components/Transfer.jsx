@@ -47,7 +47,7 @@ export default function Transfer() {
         body: JSON.stringify({ ...formValues, withPM: withPm }),
       });
       const data = await response.json();
-      setTransactionHash(data.transactionHash);
+      setTransactionHash(data.txHash);
     } catch (error) {
       console.log("Error While Fetching Data ", error);
     }

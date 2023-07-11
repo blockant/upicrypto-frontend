@@ -64,7 +64,7 @@ export default function Batchtransfer() {
       body: JSON.stringify({ ...formValues, t: addresses, withPM: withPm }),
     });
     const data = await response.json();
-    setTransactionHash(data.transactionHash);
+    setTransactionHash(data.txHash);
   };
 
   const handleChange = (event) => {

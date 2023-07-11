@@ -59,7 +59,7 @@ export default function Erc20transfer() {
         body: JSON.stringify({ ...formValues, withPM: withPm }),
       });
       const data = await response.json();
-      setTransactionHash(data.transactionHash);
+      setTransactionHash(data.txHash);
     } catch (error) {
       console.log("Error while Fetching Data", error);
     }
