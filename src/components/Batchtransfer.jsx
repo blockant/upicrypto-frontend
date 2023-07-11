@@ -6,15 +6,39 @@ export default function Batchtransfer() {
   const [newAddress, setNewAddress] = useState("");
   const [withPm, setWithPm] = useState(false);
   const [transactionHash, setTransactionHash] = useState("0x");
+  const [invalidToAddress, setInvalidToAddress] = useState(false);
+  const [invalidValue, setInvalidValue] = useState(false);
   const [formValues, setFormValues] = useState({
     amt: "",
   });
 
   function handleAddAddress(event) {
     event.preventDefault();
-    setAddresses([...addresses, newAddress]);
+    if (newAddress.length == 42) {
+      setAddresses([...addresses, newAddress]);
+      setNewAddress("");
+      setInvalidToAddress(false);
+    } else {
+      setInvalidToAddress(true);
+    }
+  }
 
-    setNewAddress("");
+  function checkInvalidValue(value) {
+    if (value <= 0) {
+      setInvalidValue(true);
+      return true;
+    } else {
+      setInvalidValue(false);
+      return false;
+    }
+  }
+  function checkInvalidTo(addresses) {
+    if (addresses.length == 0) {
+      setInvalidToAddress(true);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   function handleRemoveAddress(index) {
@@ -25,6 +49,13 @@ export default function Batchtransfer() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const invalidValue = checkInvalidValue(formValues.amt);
+    const invalidTo = checkInvalidTo(addresses);
+
+    if (invalidValue || invalidTo) {
+      return;
+    }
     const response = await fetch("http://localhost:30001/batch-transfer", {
       method: "POST",
       headers: {
@@ -49,6 +80,9 @@ export default function Batchtransfer() {
         <label className="label" htmlFor="to">
           To:
         </label>
+        {invalidToAddress && (
+          <text className="error">Please enter valid Address</text>
+        )}
 
         {addresses.map((address, index) => (
           <div key={index}>
@@ -61,25 +95,28 @@ export default function Batchtransfer() {
             </button>
           </div>
         ))}
-        <div>
-          <input
-            style={{ width: 610 }}
-            className="input"
-            type="text"
-            value={newAddress}
-            onChange={(event) => setNewAddress(event.target.value)}
-          />
-          <button className="add-button" onClick={handleAddAddress}>
-            +
-          </button>
-        </div>
+        <br />
+
+        <input
+          // style={{ width: 610 }}
+          className={`input ${invalidToAddress ? "error" : ""}`}
+          type="text"
+          value={newAddress}
+          onChange={(event) => setNewAddress(event.target.value)}
+        />
+        <button className="add-button" onClick={handleAddAddress}>
+          +
+        </button>
 
         <br />
         <label className="label" htmlFor="amount">
           Amount:
         </label>
+        {invalidValue && (
+          <text className="error">Please enter valid Amount</text>
+        )}
         <input
-          className="input"
+          className={`input ${invalidValue ? "error" : ""}`}
           type="text"
           id="amount"
           name="amt"
@@ -109,7 +146,7 @@ export default function Batchtransfer() {
         </label>
         <br />
         <button className="button" type="submit">
-          Submit
+          Transfer
         </button>
         {transactionHash && (
           <>

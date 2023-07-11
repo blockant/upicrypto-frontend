@@ -1,10 +1,10 @@
 .address-button {
   margin-top: 10px;
   background-color: #0077c2;
-  border-radius: 20px; /* set the border radius to make it rounded */
+  border-radius: 20px; 
   padding: 10px;
   color: #fff;
-  width: 30%; /* set the width to take up only 30% of the form */
+  width: 30%; 
   margin-left: 35%;
   margin-right: auto; /*add this rule*/
 }

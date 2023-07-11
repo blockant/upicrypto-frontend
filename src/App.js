@@ -6,13 +6,18 @@ import Batchtransfer from "./components/Batchtransfer";
 import Erc20transfer from "./components/Erc20transfer";
 import Transfer from "./components/Transfer";
 import Button from "./components/Button";
+import GetAddress from "./components/GetAddress";
 
 function App() {
   return (
     <div>
       <Header />
-      {/* <Button /> */}
-      <Form />
+      <span>
+        <GetAddress />
+      </span>
+      <span>
+        <Form />
+      </span>
       <Batchtransfer />
       <Erc20transfer />
       <Transfer />

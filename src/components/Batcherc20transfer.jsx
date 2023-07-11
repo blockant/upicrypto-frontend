@@ -6,6 +6,9 @@ export default function Batcherc20transfer() {
   const [newAddress, setNewAddress] = useState("");
   const [withPm, setWithPm] = useState(false);
   const [transactionHash, setTransactionHash] = useState("0x");
+  const [invalidToAddress, setInvalidToAddress] = useState(false);
+  const [invalidTokenAddress, setInvalidTokenAddress] = useState(false);
+  const [invalidValue, setInvalidValue] = useState(false);
   const [formValues, setFormValues] = useState({
     tkn: "",
     amt: "",
@@ -13,9 +16,49 @@ export default function Batcherc20transfer() {
 
   function handleAddAddress(event) {
     event.preventDefault();
-    setAddresses([...addresses, newAddress]);
+    if (newAddress.length >= 42) {
+      setAddresses([...addresses, newAddress]);
+      setNewAddress("");
+      setInvalidToAddress(false);
+    } else {
+      setInvalidToAddress(true);
+    }
+  }
 
-    setNewAddress("");
+  function checkInvalidToAddress(addrArray) {
+    // if (address.length !== 42) {
+    //   setInvalidToAddress(true);
+    //   return true;
+    // } else {
+    //   setInvalidToAddress(false);
+    //   return false;
+    // }
+  }
+  function checkInvalidTokenAddress(address) {
+    if (address.length !== 42) {
+      setInvalidTokenAddress(true);
+      return true;
+    } else {
+      setInvalidTokenAddress(false);
+      return false;
+    }
+  }
+  function checkInvalidValue(value) {
+    if (value <= 0) {
+      setInvalidValue(true);
+      return true;
+    } else {
+      setInvalidValue(false);
+      return false;
+    }
+  }
+  function checkInvalidTo(addresses) {
+    if (addresses.length == 0) {
+      setInvalidToAddress(true);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   function handleRemoveAddress(index) {
@@ -26,15 +69,28 @@ export default function Batcherc20transfer() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await fetch("http://localhost:30001/batcherc20-transfer", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...formValues, t: addresses, withPM: withPm }),
-    });
-    const data = await response.json();
-    setTransactionHash(data.transactionHash);
+    const invalidToken = checkInvalidTokenAddress(formValues.tkn);
+    const invalidValue = checkInvalidValue(formValues.amt);
+    const invalidTo = checkInvalidTo(addresses);
+    if (invalidToken || invalidValue || invalidTo) {
+      return;
+    }
+    try {
+      const response = await fetch(
+        "http://localhost:30001/batcherc20-transfer",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...formValues, t: addresses, withPM: withPm }),
+        }
+      );
+      const data = await response.json();
+      setTransactionHash(data.transactionHash);
+    } catch (error) {
+      console.log("Error occured while Seding data ", error);
+    }
   };
 
   const handleChange = (event) => {
@@ -51,8 +107,11 @@ export default function Batcherc20transfer() {
         <label className="label" htmlFor="token">
           Token:
         </label>
+        {invalidTokenAddress && (
+          <text className="error">Please enter valid Address</text>
+        )}
         <input
-          className="input"
+          className={`input ${invalidTokenAddress ? "error" : ""}`}
           type="text"
           id="token"
           name="tkn"
@@ -62,6 +121,9 @@ export default function Batcherc20transfer() {
         <label className="label" htmlFor="to">
           To:
         </label>
+        {invalidToAddress && (
+          <text className="error">Please enter valid Address</text>
+        )}
         {addresses.map((address, index) => (
           <div key={index}>
             <span className="transaction-hash to">{address}</span>
@@ -74,25 +136,31 @@ export default function Batcherc20transfer() {
             </button>
           </div>
         ))}
-        <div>
-          <input
-            style={{ width: 610 }}
-            className="input"
-            type="text"
-            value={newAddress}
-            onChange={(event) => setNewAddress(event.target.value)}
-          />
-          <button className="add-button" onClick={handleAddAddress}>
-            +
-          </button>
-        </div>
+        <br />
+
+        <input
+          // style={{ width: 610 }}
+          className={`input ${invalidToAddress ? "error" : ""}`}
+          type="text"
+          value={newAddress}
+          onChange={(event) => {
+            setNewAddress(event.target.value);
+          }}
+        />
+
+        <button className="add-button" onClick={handleAddAddress}>
+          +
+        </button>
 
         <br />
         <label className="label" htmlFor="amount">
           Amount:
         </label>
+        {invalidValue && (
+          <text className="error">Please enter valid Amount</text>
+        )}
         <input
-          className="input"
+          className={`input ${invalidValue ? "error" : ""}`}
           type="text"
           id="amount"
           name="amt"
@@ -122,7 +190,7 @@ export default function Batcherc20transfer() {
         </label>
         <br />
         <button className="button" type="submit">
-          Submit
+          Transfer
         </button>
         {transactionHash && (
           <>
