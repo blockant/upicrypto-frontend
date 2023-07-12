@@ -7,21 +7,35 @@ import Erc20transfer from "./components/Erc20transfer";
 import Transfer from "./components/Transfer";
 import Button from "./components/Button";
 import GetAddress from "./components/GetAddress";
+import { AuthConsumer, AuthProvider } from "./Features/Auth/AuthProvider";
+
 
 function App() {
   return (
     <div>
-      <Header />
+      <AuthProvider>
+        <Header />
 
-      <GetAddress />
+        <GetAddress />
 
-      <Form />
+        <Form />
 
-      <Batchtransfer />
-      <Erc20transfer />
-      <Transfer />
+        <AuthConsumer>
+          {(auth) =>
+            auth.provider ? (
+              <>
+                <Batchtransfer />
+                <Erc20transfer />
+                <Transfer />
+                <Button onClick={auth.logout}>Logout</Button>
+              </>
+            ) : null
+          }
+        </AuthConsumer>
+      </AuthProvider>
     </div>
   );
 }
+
 
 export default App;
