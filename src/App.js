@@ -12,12 +12,11 @@ function App() {
   return (
     <div>
       <Header />
-      <span>
-        <GetAddress />
-      </span>
-      <span>
-        <Form />
-      </span>
+
+      <GetAddress />
+
+      <Form />
+
       <Batchtransfer />
       <Erc20transfer />
       <Transfer />
