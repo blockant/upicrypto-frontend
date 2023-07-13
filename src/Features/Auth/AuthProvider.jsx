@@ -47,6 +47,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = useCallback(() => {
+    console.log("Inside login");
     web3auth
       .connect()
       .then((data) => {

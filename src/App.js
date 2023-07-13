@@ -8,7 +8,7 @@ import Transfer from "./components/Transfer";
 import Button from "./components/Button";
 import GetAddress from "./components/GetAddress";
 import { Auth } from "./Features/Auth";
-import { AuthConsumer, AuthProvider } from "./Features/Auth/AuthProvider";
+import { AuthConsumer } from "./Features/Auth/AuthProvider";
 
 function App() {
   return (
