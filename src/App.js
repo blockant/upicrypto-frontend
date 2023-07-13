@@ -9,7 +9,6 @@ import Button from "./components/Button";
 import GetAddress from "./components/GetAddress";
 import { AuthConsumer, AuthProvider } from "./Features/Auth/AuthProvider";
 
-
 function App() {
   return (
     <div>
@@ -29,13 +28,14 @@ function App() {
                 <Transfer />
                 <Button onClick={auth.logout}>Logout</Button>
               </>
-            ) : null
+            ) : (
+              <button onClick={auth.login}>Login</button>
+            )
           }
         </AuthConsumer>
       </AuthProvider>
     </div>
   );
 }
-
 
 export default App;
