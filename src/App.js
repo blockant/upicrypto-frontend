@@ -7,12 +7,13 @@ import Erc20transfer from "./components/Erc20transfer";
 import Transfer from "./components/Transfer";
 import Button from "./components/Button";
 import GetAddress from "./components/GetAddress";
+import { Auth } from "./Features/Auth";
 import { AuthConsumer, AuthProvider } from "./Features/Auth/AuthProvider";
 
 function App() {
   return (
     <div>
-      <AuthProvider>
+      <Auth>
         <Header />
 
         <GetAddress />
@@ -33,7 +34,7 @@ function App() {
             )
           }
         </AuthConsumer>
-      </AuthProvider>
+      </Auth>
     </div>
   );
 }
