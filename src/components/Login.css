@@ -12,6 +12,18 @@
   box-sizing: border-box;
 }
 
+.form h2 {
+  text-align: center;
+}
+.form span {
+  display: flex;
+  flex-direction: row;
+}
+
+/* .form span button {
+  margin-top: 10px;
+} */
+
 .label {
   margin-bottom: 5px;
   font-family: sans-serif;
@@ -30,7 +42,6 @@
   background-color: #0077c2;
   border-radius: 20px; /* set the border radius to make it rounded */
   padding: 10px;
-  cursor: pointer;
   color: #fff;
   width: 30%; /* set the width to take up only 30% of the form */
   margin-left: auto; /* add this rule */
@@ -99,7 +110,6 @@
   background-color: #0077c2;
   border-radius: 5px; /* set the border radius to make it rounded */
   padding: 5px;
-  cursor: pointer;
   color: #fff;
   width: 5%; /* set the width to take up only 30% of the form */
   margin-left: auto; /* add this rule */
@@ -120,7 +130,6 @@
   background-color: #ff1a1a;
   border-radius: 5px; /* set the border radius to make it rounded */
   padding: 2px;
-  cursor: pointer;
   color: #fff;
 
   width: 3%;
@@ -154,22 +163,22 @@
   color: #e60000;
 }
 
-.navigate-button {
-  margin-top: 10px;
+.login-button {
   background-color: #0077c2;
-  border-radius: 20px; /* set the border radius to make it rounded */
-  padding: 10px;
-  cursor: pointer;
+  border: none;
+  border-radius: 5px;
   color: #fff;
-  width: 15%; /* set the width to take up only 30% of the form */
-  margin-left: 20px; /* add this rule */
-  margin-right: 20px; /* add this rule */
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 80px 0px 10px 20px;
+  height: 50px;
 }
 
-.navigate-button:hover {
+.login-button:hover {
   background-color: #00bfff;
 }
 
-.navigate-button:focus {
+.login-button:focus {
   background-color: #00bfff;
 }

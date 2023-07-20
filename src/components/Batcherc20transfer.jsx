@@ -53,7 +53,7 @@ export default function Batcherc20transfer() {
     }
   }
   function checkInvalidTo(addresses) {
-    if (addresses.length == 0) {
+    if (addresses.length === 0) {
       setInvalidToAddress(true);
       return true;
     } else {

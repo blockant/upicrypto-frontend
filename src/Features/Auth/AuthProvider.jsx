@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
+import {
   ADAPTER_EVENTS,
   CHAIN_NAMESPACES,
   CONNECTED_EVENT_DATA,
@@ -39,6 +45,7 @@ const web3auth = new Web3Auth({
 export const AuthProvider = ({ children }) => {
   const [provider, setProvider] = useState(null);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   const onSuccessfulLogin = useCallback((data, user) => {
     console.log("onSuccessfulLogin", data, user);
@@ -52,6 +59,7 @@ export const AuthProvider = ({ children }) => {
       .connect()
       .then((data) => {
         console.log(data);
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
@@ -63,6 +71,7 @@ export const AuthProvider = ({ children }) => {
       .logout()
       .then(() => {
         // login on logout
+        navigate("/");
       })
       .catch((err) => {
         console.log("logout", err);

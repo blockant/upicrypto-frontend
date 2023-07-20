@@ -14,7 +14,7 @@ export default function Batchtransfer() {
 
   function handleAddAddress(event) {
     event.preventDefault();
-    if (newAddress.length == 42) {
+    if (newAddress.length === 42) {
       setAddresses([...addresses, newAddress]);
       setNewAddress("");
       setInvalidToAddress(false);
@@ -33,7 +33,7 @@ export default function Batchtransfer() {
     }
   }
   function checkInvalidTo(addresses) {
-    if (addresses.length == 0) {
+    if (addresses.length === 0) {
       setInvalidToAddress(true);
       return true;
     } else {
