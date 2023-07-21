@@ -124,18 +124,19 @@ export default function Batcherc20transfer() {
         {invalidToAddress && (
           <text className="error">Please enter valid Address</text>
         )}
-        {addresses.map((address, index) => (
-          <div key={index}>
-            <span className="transaction-hash to">{address}</span>
-
-            <button
-              className="remove-button"
-              onClick={() => handleRemoveAddress(index)}
-            >
-              x
-            </button>
-          </div>
-        ))}
+        <div className="address-container">
+          {addresses.map((address, index) => (
+            <div key={index} className="address-item">
+              <span className="transaction-hash to">{address}</span>
+              <button
+                className="remove-button"
+                onClick={() => handleRemoveAddress(index)}
+              >
+                x
+              </button>
+            </div>
+          ))}
+        </div>
         <br />
 
         <input

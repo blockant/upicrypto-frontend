@@ -140,15 +140,28 @@
 .to {
   /* border:1px solid  */
   margin-bottom: 1px;
+  padding-left: 2px;
   height: 30px; /* increase the height of the input */
   border-radius: 5px; /* add rounded corners */
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: auto;
 
   /* box-shadow: 2px 2px 10px rgba(0, 0, 255, 0.2); */
   /* border-radius: 3px;
   padding: 5px 5px 5px 5px;
   width: 60%; */
 }
+.address-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.address-item {
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+  margin-bottom: 5px; /* Add some spacing between address items */
+}
+
 .error {
   border-color: #e60000;
   color: #e60000;
